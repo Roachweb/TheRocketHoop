@@ -6,9 +6,7 @@ public class GameBall : MonoBehaviour {
 
     Rigidbody rb;
 
-    GameObject[] Goal;
-
-    Vector3 datSpin = Vector3.zero;
+    GameObject Goal;
 
     private GameObject reSpawnPoint;
 
@@ -16,22 +14,14 @@ public class GameBall : MonoBehaviour {
 
     Transform setPT;
 
-
-
     // Use this for initialization
     void Start () {
-
         reSpawnPoint = GameObject.FindGameObjectWithTag("reSpawnPoint");
-        Goal = GameObject.FindGameObjectsWithTag("Goal");
 
-        
+        Goal = GameObject.FindGameObjectWithTag("Goal");
 
         rb = GetComponent<Rigidbody>();
-        Vector3 datSpin = new Vector3(0,3,0);
-        
-        
-
-        respawned = false;
+      
     }
 	
 	// Update is called once per frame
@@ -42,6 +32,7 @@ public class GameBall : MonoBehaviour {
             setPT = reSpawnPoint.transform;
 
             transform.position = setPT.transform.position;
+            transform.rotation = reSpawnPoint.transform.rotation;
 
             rb.MovePosition(setPT.transform.position + transform.up * Time.deltaTime);
         }
@@ -50,12 +41,9 @@ public class GameBall : MonoBehaviour {
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.tag == "Player") ///this is where my physics is
+        if (c.gameObject.tag == "Player") 
         {
-            transform.position = Vector3.MoveTowards(transform.position, Goal[Random.Range(0, Goal.Length)].transform.position, 1.5f);
-            //Debug.LogWarning("Hit");
-            rb.MoveRotation(Quaternion.AngleAxis(30, datSpin));
-            //add force explosion
+            
         }
     }
 
@@ -63,8 +51,7 @@ public class GameBall : MonoBehaviour {
     {
         if (c.gameObject.tag == "goal")
         { 
-            Debug.LogWarning("Point Hype");
-            
+            Debug.LogWarning("Point Hype"); 
         }  
     }
 
@@ -73,7 +60,7 @@ public class GameBall : MonoBehaviour {
         if (c.gameObject.tag == "goal")
         {
             transform.position = reSpawnPoint.transform.position;
-            respawned = true;
+            transform.rotation = reSpawnPoint.transform.rotation;
         }
     }
 }

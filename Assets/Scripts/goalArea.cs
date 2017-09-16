@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class goalArea : MonoBehaviour {
 
-    int _score;
+    static int _score;
 
     bool jusSc;
 
@@ -52,7 +52,7 @@ public class goalArea : MonoBehaviour {
             jusSc = false;
         }
     }
-    public int score
+    public static int score
     {
         get { return _score; }
         set
